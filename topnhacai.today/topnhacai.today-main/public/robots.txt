@@ -1,0 +1,17 @@
+# *
+User-agent: *
+Disallow: /404
+Disallow: admin.topnhacai.today
+Disallow: /readme.html
+Disallow: system.topnhacai.today
+
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://topnhacai.today/
+
+# Sitemaps
+Sitemap: https://topnhacai.today/sitemap.xml
+Sitemap: https://topnhacai.today/post-sitemap.xml

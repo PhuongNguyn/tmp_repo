@@ -1,0 +1,117 @@
+import React from "react";
+import Menu from "../../components/Menu";
+import TopHeader from "../../components/TopHeader";
+import PostList from "../../components/Sidebars/postList";
+import ToolBet from "../../components/Sidebars/toolBet";
+import Footer from "../../components/Footer/Footer";
+import Breadcrumbs from "../../components/Breadcrumbs";
+import TaxDescription from "../../components/TaxDescription";
+import Content from "../../components/Content";
+import TrustBet from "../../components/Sidebars/trustBet";
+import AdsImage from "../../components/Sidebars/adsImage";
+import CompareDealers from "../../components/CompareDealers/CompatrDealers";
+import FaqTnc from "../../components/FaqTnc";
+import useSWR from "swr";
+import Loading from "../../components/Loading";
+import Head from "next/head";
+import IndexPage from "../../components/IndexPage";
+import { getBanner } from "../api/ApiBanner";
+import { getDataPages } from "../api/ApiPages";
+import { getDealer } from "../api/ApiDealer";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import Infor from "../../components/ReviewDealer/Infor/Infor";
+import Payment from "../../components/ReviewDealer/Payment/Payment";
+import Promotions from "../../components/ReviewDealer/Promotions/Promotions";
+import Rating from "../../components/ReviewDealer/Rating/Rating";
+import Services from "../../components/ReviewDealer/Service/Service";
+const breadSlug = "so-sanh-nha-cai";
+
+const ReviewDealer = ({ pageData, dataImage, dealerInfor }) => {
+  const query = useRouter();
+
+  const postSidebar1 = {
+    title: "Nhận định bóng đá",
+    mark: "NEW",
+    bgColor: "#ff4b00",
+  };
+  const postSidebar2 = {
+    title: "Hướng dẫn cá cược",
+    mark: "HOT",
+    bgColor: "#ff4b00",
+  };
+  const breadTitle = "Đánh giá nhà cái";
+  const Tax = {
+    taxTitle: "Đánh giá nhà cái",
+    taxDescription: pageData.page_description,
+  };
+  // console.log(Tax)
+  return (
+    <>
+      <Head>
+        <title>Top nhà cái - Đánh giá nhà cái</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <IndexPage data={pageData} />
+      <Menu />
+      <TopHeader />
+      <div id="ajax-content-wrap">
+        <div className="container-wrap container_nc_home">
+          <div className="container main-content">
+            <div className="row">
+              <div className="col span_9 bxcontainer">
+                {
+                  <>
+                    <Breadcrumbs breadTitle={breadTitle} />
+                    <TaxDescription Tax={Tax} />
+                    <Infor data={dealerInfor} />
+                    {/* <Payment />
+                    <Promotions />
+                    <Rating />
+                    <Services /> */}
+                    {/* <Content data={pageData} /> */}
+                    {/* <FaqTnc /> */}
+                  </>
+                }
+              </div>
+              <div className="col span_3 bx_sidebar">
+                {
+                  <>
+                    {/* <AdsImage data={dataImage} /> */}
+                    {/* <PostList postSidebar={postSidebar1} /> */}
+                    <TrustBet />
+                    {/* <PostList postSidebar={postSidebar2} /> */}
+                    <ToolBet />
+                  </>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    </>
+  );
+};
+
+export const getServerSideProps = async (props) => {
+  const Slug = "danh-gia";
+
+  const dataBanner = await getBanner(Slug);
+  const dataImage = dataBanner?.length > 0 ? dataBanner : [];
+  const pageData = await getDataPages(Slug);
+  const dealersData = await getDealer();
+
+  let dealerInfor = dealersData?.find(
+    (item) => item.dealer_slug === props?.query?.slug
+  );
+  return {
+    props: {
+      pageData,
+      dataImage,
+      dealersData,
+      dealerInfor,
+    },
+  };
+};
+export default ReviewDealer;

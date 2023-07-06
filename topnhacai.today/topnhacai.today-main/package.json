@@ -1,0 +1,37 @@
+{
+  "name": "topnhacai-today",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "next start -p 3006",
+    "build": "next build",
+    "export": "next build && next export",
+    "eject": "react-scripts eject",
+    "postbuild": "next-sitemap",
+    "dev": "next"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.1.1",
+    "@fortawesome/free-brands-svg-icons": "^6.1.1",
+    "@fortawesome/free-regular-svg-icons": "^6.1.1",
+    "@fortawesome/free-solid-svg-icons": "^6.1.1",
+    "@fortawesome/react-fontawesome": "^0.1.18",
+    "axios": "^0.27.2",
+    "html-to-text": "^8.2.1",
+    "isomorphic-fetch": "^3.0.0",
+    "moment": "^2.29.4",
+    "next": "12.1.6",
+    "next-sitemap": "^3.1.21",
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "postcss-preset-env": "^7.7.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-faq-component": "^1.3.4",
+    "react-modal": "^3.15.1",
+    "swr": "^1.3.0"
+  },
+  "devDependencies": {
+    "eslint": "8.18.0",
+    "eslint-config-next": "12.1.6"
+  }
+}
